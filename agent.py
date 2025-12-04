@@ -270,6 +270,12 @@ class Agent():
                 actions.unsqueeze(dim=1)
                 .gather(1, actions.unsqueeze(dim=1))  ==>
                     .squeeze()                    ==>
+            Example:
+            policy_dqn(states)       ==> tensor([[1.1, 2.5, 3.0], [4.2, 5.1, 6.8]])  # Shape: [2, 3]
+            actions                  ==> tensor([1, 2])                              # Shape: [2]
+            actions.unsqueeze(dim=1) ==> tensor([[1], [2]])                          # Shape: [2, 1]
+            .gather(1, ...)          ==> tensor([[2.5], [6.8]])                      # Shape: [2, 1] (Selects index 1 from row 0, index 2 from row 1)
+            .squeeze()               ==> tensor([2.5, 6.8])                          # Shape: [2]
         '''
 
         # Compute loss
